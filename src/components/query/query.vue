@@ -1,8 +1,10 @@
 <template>
-  <div id="app" class="container"><br>
-	<Nav/>
-    <h1>Bibliotteca</h1>
-    <h4>Há {{ this.list.length }} livros</h4>
+  <div id="app" class="container">
+    <br />
+    <nav>
+      <Nav />
+      <h2>Biblioteca</h2>
+    </nav>
     <b-alert
       show
       dismissible
@@ -11,135 +13,70 @@
       :variant="mensagem.tipo"
       >{{ mensagem.texto }}</b-alert
     >
-    <!-- <b-card class="row">
-      <b-row>
-        <b-col cols="12" sm="12">
-          <b-form-group label="Search:">
-            <b-form-input
-              type="text"
-              size="lg"
-              v-model="search"
-              placeholder="Pesquise aqui"
-            ></b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-row>
-      <hr />
-      <b-row  align-h="end">
-
-        <b-col md="2"
-          ><b-button @click="salvar" size="lg" variant="primary"
-            >Salvar</b-button
-          ></b-col
-        >
-        <b-col md="2"
-          ><b-button @click="cancel" size="lg" variant="danger"
-            >Cancelar</b-button
-          ></b-col
-        >
-      </b-row>
-    </b-card> -->
+    <h4>Há {{ this.list.length }} livros</h4>
     <hr />
     <vue-good-table
-  :columns="columns"
-  :rows="list"
-  :search-options="{
-    enabled: true
-  }"
-   :pagination-options="{
-    enabled: true,
-    mode: 'records',
-    perPage: 'all',
-    position: 'top',
-    perPageDropdown: [10, 20, 30, 40, 50, 60, 80, 100, 200],
-    setCurrentPage: 1,
-    nextLabel: 'next',
-    prevLabel: 'prev',
-    rowsPerPageLabel: 'Colunas por página',
-    ofLabel: 'of',
-    pageLabel: 'page', // for 'pages' mode
-    allLabel: 'All',
-  }">
-</vue-good-table>
-
-    <!-- <div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Titulo</th>
-            <th>Subtitulo</th>
-            <th>Autor</th>
-            <th>Nº Páginas</th>
-            <th>AÇÕES</th>
-          </tr>
-        </thead>
-        <tbody v-if="filteredBooks.length > 0">
-          <tr  v-for="(livros, id) in filteredBooks" :key="id">
-            <td>{{ livros.titulo }}</td>
-            <td>{{ livros.subtitulo }}</td>
-            <td>{{ livros.autor }}</td>
-            <td>{{ livros.numpag }}</td>
-            <td>{{ livros.tema }}</td>
-            <td>{{ livros.editor }}</td>
-            <td>
-              <button
-                type="button"
-                class="btn btn-warning"
-                @click="carregar(id)"
-              >
-                <strong>Editar</strong>
-              </button>
-            </td>
-            <td>
-              <button class="btn btn-danger" @click="excluir(id)">
-                Excluir
-              </button>
-            </td>
-          </tr>
-        </tbody>
-        <div v-else>Não há resultados sobre o que você está pesquisando</div>
-      </table>
-    </div> -->
+      :columns="columns"
+      :rows="list"
+      :search-options="{
+        enabled: true,
+      }"
+      :pagination-options="{
+        enabled: true,
+        mode: 'records',
+        perPage: 100,
+        position: 'top',
+        perPageDropdown: [10, 20, 30, 40, 50, 60, 80, 100, 200],
+        setCurrentPage: 1,
+        nextLabel: 'next',
+        prevLabel: 'prev',
+        rowsPerPageLabel: 'Colunas por página',
+        ofLabel: 'of',
+        pageLabel: 'page', // for 'pages' mode
+        allLabel: 'All',
+      }"
+    >
+    </vue-good-table>
   </div>
 </template>
 
 <script>
-import Nav from '@/components/nav.vue'
+import Nav from "@/components/nav.vue";
 export default {
-	/* eslint-disable */
-	components: {
-		Nav
-	},
+  /* eslint-disable */
+  components: {
+    Nav,
+  },
   data() {
-	  return {
-          columns: [
-              {
-                  label: "Título",
-                  field: 'titulo'
-              },
-              {
-                  label: "Sub-Título",
-                  field: 'subtitulo'
-              },
-              {
-                  label: "Autor",
-                  field: 'autor'
-              },
-              {
-                  label: "Editora",
-                  field: 'editor'
-              },
-              {
-                  label: "Nº páginas",
-                  field: 'numpag',
-                  type: 'number'
-              },
-              {
-                  label: "Tema",
-                  field: 'tema'
-              },
-          ],
-      search: '',
+    return {
+      columns: [
+        {
+          label: "Título",
+          field: "titulo",
+        },
+        {
+          label: "Sub-Título",
+          field: "subtitulo",
+        },
+        {
+          label: "Autor",
+          field: "autor",
+        },
+        {
+          label: "Editora",
+          field: "editor",
+        },
+        {
+          label: "Nº páginas",
+          field: "numpag",
+          type: "number",
+        },
+        {
+          label: "Tema",
+          field: "tema",
+        },
+      ],
+      search: "",
       mensagens: [],
       list: [],
       id: 0,
@@ -161,22 +98,24 @@ export default {
     });
   },
   computed: {
-      list() {
-          this.$http.get("livros.json").then((res) => {
-      this.list = res.data;
-      // console.log(res.data)
-    });
-      },
-      filteredBooks() {
-          return this.list.filter( livros => livros.titulo.toLowerCase().includes(this.search.toLowerCase()) ||
+    list() {
+      this.$http.get("livros.json").then((res) => {
+        this.list = res.data;
+        // console.log(res.data)
+      });
+    },
+    filteredBooks() {
+      return this.list.filter(
+        (livros) =>
+          livros.titulo.toLowerCase().includes(this.search.toLowerCase()) ||
           livros.subtitulo.toLowerCase().includes(this.search.toLowerCase()) ||
           livros.autor.includes(this.search.toLowerCase()) ||
           livros.editor.includes(this.search.toLowerCase()) ||
-           livros.numpag.includes(this.search.toLowerCase()) ||
-           livros.tema.includes(this.search.toLowerCase()))
-      }
+          livros.numpag.includes(this.search.toLowerCase()) ||
+          livros.tema.includes(this.search.toLowerCase())
+      );
+    },
   },
-
 };
 </script>
 
@@ -188,7 +127,15 @@ export default {
   color: #2c3e50;
   font-size: 1.2rem;
 }
-
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 70px;
+}
+h1 {
+  text-align: center;
+}
 #app h1 {
   text-align: center;
   margin: 50px;

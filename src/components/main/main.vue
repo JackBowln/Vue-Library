@@ -5,7 +5,6 @@
       <Nav />
       <h2>Biblioteca</h2>
     </nav>
-    <h4>Há {{ list.length }} livros</h4>
     <b-alert
       show
       dismissible
@@ -15,6 +14,7 @@
       >{{ mensagem.texto }}</b-alert
     >
     <b-card class="row">
+      <h4>Há {{ list.length }} livros</h4>
       <b-row>
         <b-col cols="12" sm="6">
           <b-form-group label="Título:">
@@ -219,19 +219,7 @@ export default {
           });
         });
     },
-    // obterUsuarios() {
-    //   this.$http.get("livros.json").then((res) => {
-    //     this.list = res.data;
-    //     console.log(res.data);
-    //   });
-    // },
   },
-  // created() {
-  // 	this.$http.post('usuarios.json', {
-  // 		nome: 'Maria',
-  // 		email: 'maria_maria@gmail.com'
-  // 	}).then(res => console.log(res))
-  // }
 };
 </script>
 
@@ -247,6 +235,7 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 70px;
 }
 h1 {
   text-align: center;

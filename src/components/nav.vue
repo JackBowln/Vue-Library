@@ -24,7 +24,7 @@
         <a v-b-toggle.sidebar-no-header>
           <div
             id="burger-container"
-            v-bind:class="[isActive ? '' : 'open']"
+            v-bind:class="[isActive ? 'closed' : 'closed open']"
             @click="toggleClass()"
           >
             <div id="burger">
@@ -127,5 +127,8 @@ a:hover {
   opacity: 0;
   /* position: relative;
   margin-left: 1000px; */
+}
+.closed {
+  padding-top: 20px;
 }
 </style>

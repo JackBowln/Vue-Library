@@ -26,6 +26,7 @@
       </b-row>
       <hr />
       <b-row  align-h="end">
+          
         <b-col md="2"
           ><b-button @click="salvar" size="lg" variant="primary"
             >Salvar</b-button

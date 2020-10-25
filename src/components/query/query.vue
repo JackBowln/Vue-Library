@@ -1,5 +1,6 @@
 <template>
-  <div id="app" class="container">
+  <div id="app" class="container"><br>
+	<Nav/>
     <h1>Biblioteca com Vue</h1>
     <h4>Há {{ this.list.length }} livros</h4>
     <b-alert
@@ -10,11 +11,10 @@
       :variant="mensagem.tipo"
       >{{ mensagem.texto }}</b-alert
     >
-	<Nav/>
-    <b-card class="row">
+    <!-- <b-card class="row">
       <b-row>
         <b-col cols="12" sm="12">
-          <b-form-group label="Título:">
+          <b-form-group label="Search:">
             <b-form-input
               type="text"
               size="lg"
@@ -26,7 +26,7 @@
       </b-row>
       <hr />
       <b-row  align-h="end">
-          
+
         <b-col md="2"
           ><b-button @click="salvar" size="lg" variant="primary"
             >Salvar</b-button
@@ -38,10 +38,31 @@
           ></b-col
         >
       </b-row>
-    </b-card>
+    </b-card> -->
     <hr />
+    <vue-good-table
+  :columns="columns"
+  :rows="list"
+  :search-options="{
+    enabled: true
+  }"
+   :pagination-options="{
+    enabled: true,
+    mode: 'records',
+    perPage: 20,
+    position: 'top',
+    perPageDropdown: [10, 20, 30, 40, 50, 60, 80, 100, 200],
+    setCurrentPage: 1,
+    nextLabel: 'next',
+    prevLabel: 'prev',
+    rowsPerPageLabel: 'Colunas por página',
+    ofLabel: 'of',
+    pageLabel: 'page', // for 'pages' mode
+    allLabel: 'All',
+  }">
+</vue-good-table>
 
-    <div>
+    <!-- <div>
       <table class="table">
         <thead>
           <tr>
@@ -78,7 +99,7 @@
         </tbody>
         <div v-else>Não há resultados sobre o que você está pesquisando</div>
       </table>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -91,6 +112,33 @@ export default {
 	},
   data() {
 	  return {
+          columns: [
+              {
+                  label: "Título",
+                  field: 'titulo'
+              },
+              {
+                  label: "Sub-Título",
+                  field: 'subtitulo'
+              },
+              {
+                  label: "Autor",
+                  field: 'autor'
+              },
+              {
+                  label: "Editora",
+                  field: 'editor'
+              },
+              {
+                  label: "Nº páginas",
+                  field: 'numpag',
+                  type: 'number'
+              },
+              {
+                  label: "Tema",
+                  field: 'tema'
+              },
+          ],
       search: '',
       mensagens: [],
       list: [],
@@ -113,6 +161,12 @@ export default {
     });
   },
   computed: {
+      list() {
+          this.$http.get("livros.json").then((res) => {
+      this.list = res.data;
+      // console.log(res.data)
+    });
+      },
       filteredBooks() {
           return this.list.filter( livros => livros.titulo.toLowerCase().includes(this.search.toLowerCase()) ||
           livros.subtitulo.toLowerCase().includes(this.search.toLowerCase()) ||

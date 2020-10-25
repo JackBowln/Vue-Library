@@ -1,5 +1,7 @@
 <template>
   <div id="app" class="container">
+    <br>
+    <Nav />
     <h1>Biblioteca com Vue</h1>
     <h4>Há {{ list.length }} livros</h4>
     <b-alert
@@ -10,7 +12,6 @@
       :variant="mensagem.tipo"
       >{{ mensagem.texto }}</b-alert
     >
-    <Nav />
     <b-card class="row">
       <b-row>
         <b-col cols="12" sm="6">
@@ -102,6 +103,8 @@
             <th>Subtitulo</th>
             <th>Autor</th>
             <th>Nº Páginas</th>
+            <th>Tema</th>
+            <th>Editora</th>
             <th>AÇÕES</th>
           </tr>
         </thead>

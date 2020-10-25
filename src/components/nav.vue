@@ -1,10 +1,10 @@
 <template id="app">
   <div>
-    <a v-b-toggle.sidebar-no-header>
+    <a v-b-toggle.sidebar-no-header @click="toggleClass()">
       <div
         id="burger-container"
         v-bind:class="[isActive ? 'on' : 'open off']"
-        @click="toggleClass()"
+        
       >
         <div id="burger">
           <span> &nbsp;</span>
@@ -21,11 +21,10 @@
       shadow
     >
       <template #default="{ hide }">
-        <a v-b-toggle.sidebar-no-header>
+        <a v-b-toggle.sidebar-no-header @click="toggleClass()">
           <div
             id="burger-container"
             v-bind:class="[isActive ? 'closed' : 'closed open']"
-            @click="toggleClass()"
           >
             <div id="burger">
               <span> &nbsp;</span>

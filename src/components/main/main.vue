@@ -14,7 +14,7 @@
       >{{ mensagem.texto }}</b-alert
     >
     <b-card class="row">
-      <h4>Há {{ list.length }} livros</h4>
+    <h4>Há {{ list.length }} livros</h4>
       <b-row>
         <b-col cols="12" sm="6">
           <b-form-group label="Título:">
@@ -219,17 +219,20 @@ export default {
           });
         });
     },
+
   },
+
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   font-size: 1.2rem;
+  margin: 0 auto;
 }
 nav {
   display: flex;

@@ -4,6 +4,7 @@
       <Nav />
       <h2>Biblioteca</h2>
     </nav>
+    <template class='hero'>            
     <input
       id="sidebar-search"
       type="text"
@@ -11,6 +12,8 @@
       v-model="search"
     />
     <button @click='clear'>X</button>
+    <h5>Total: {{ list.length }} livros</h5>
+    </template>
     <b-list-group v-for="(livros, id) in filteredBooks" :key="id">
       <b-list-group-item>
         <b-card-title>{{ livros.titulo }}</b-card-title>
@@ -78,13 +81,14 @@ export default {
   }
 };
 </script>
-<style lang="css" scoped>
+<style scoped>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   font-size: 1.5rem;
+  margin: 0 auto;
 }
 
 #app h1 {
@@ -102,6 +106,9 @@ button{
     border-left: none;
     border: 1px solid #ccc;
     padding: 5px;
+    padding-right: 8px;
+    padding-left: 8px;
+    border-radius: 0px 5px 5px 0px;
 }
 input{
     margin: 20px 0px 20px 20px;
@@ -110,5 +117,15 @@ input{
     border-right: none;
     padding: 5px;
     outline: none;
+}
+h5 {
+    color:#2c3e50;
+    margin: 0 0 10px 20px;
+}
+.hero{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 70px;
 }
 </style>

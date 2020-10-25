@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container"><br>
 	<Nav/>
-    <h1>Biblioteca com Vue</h1>
+    <h1>Bibliotteca</h1>
     <h4>Há {{ this.list.length }} livros</h4>
     <b-alert
       show
@@ -49,7 +49,7 @@
    :pagination-options="{
     enabled: true,
     mode: 'records',
-    perPage: 20,
+    perPage: 'all',
     position: 'top',
     perPageDropdown: [10, 20, 30, 40, 50, 60, 80, 100, 200],
     setCurrentPage: 1,

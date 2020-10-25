@@ -1,8 +1,10 @@
 <template>
   <div id="app" class="container">
-    <br>
-    <Nav />
-    <h1>Biblioteca com Vue</h1>
+    <br />
+    <nav>
+      <Nav />
+      <h2>Biblioteca</h2>
+    </nav>
     <h4>Há {{ list.length }} livros</h4>
     <b-alert
       show
@@ -80,13 +82,13 @@
         </b-col>
       </b-row>
       <hr />
-      <b-row align-h="end">
-        <b-col md="2"
+      <b-row align-h="end" class="flex-row">
+        <b-col
           ><b-button @click="salvar" size="lg" variant="primary"
             >Salvar</b-button
           ></b-col
         >
-        <b-col md="2"
+        <b-col
           ><b-button @click="cancel" size="lg" variant="danger"
             >Cancelar</b-button
           ></b-col
@@ -240,6 +242,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   font-size: 1.2rem;
+}
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+h1 {
+  text-align: center;
 }
 
 #app h1 {

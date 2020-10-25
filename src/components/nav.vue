@@ -1,4 +1,4 @@
-<template>
+<template id="app">
   <div>
     <a v-b-toggle.sidebar-no-header>
       <div
@@ -48,6 +48,10 @@
             <div class="button">Consulta</div>
           </router-link>
           <hr />
+          <router-link to="/mobile">
+            <div class="button">Mobile</div>
+          </router-link>
+          <hr />
         </div>
       </template>
     </b-sidebar>
@@ -68,6 +72,9 @@ export default {
 };
 </script>
 <style lang="css">
+#app{
+  margin: 10px;
+}
 a {
   color: #555;
   outline: none;

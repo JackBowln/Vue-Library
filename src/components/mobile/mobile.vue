@@ -12,7 +12,7 @@
       v-model="search"
     />
     <button @click='clear'>X</button>
-    <h5>Total: {{ list.length }} livros</h5>
+    <h5>Total: {{ filteredBooks.length }} livros</h5>
     </template>
     <b-list-group v-for="(livros, id) in filteredBooks" :key="id">
       <b-list-group-item>

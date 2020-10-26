@@ -108,11 +108,8 @@ export default {
       return this.list.filter(
         (livros) =>
           livros.titulo.toLowerCase().includes(this.search.toLowerCase()) ||
-          livros.subtitulo.toLowerCase().includes(this.search.toLowerCase()) ||
-          livros.autor.includes(this.search.toLowerCase()) ||
-          livros.editor.includes(this.search.toLowerCase()) ||
-          livros.numpag.includes(this.search.toLowerCase()) ||
-          livros.tema.includes(this.search.toLowerCase())
+          livros.autor.toLowerCase().includes(this.search.toLowerCase())  ||
+          livros.tema.toLowerCase().includes(this.search.toLowerCase()) 
       );
     },
   },

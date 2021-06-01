@@ -21,7 +21,7 @@
             <b-form-input
               type="text"
               size="lg"
-              v-model="livros.titulo"
+              v-model="livros.title"
               placeholder="Informe o titulo"
             ></b-form-input>
           </b-form-group>
@@ -31,7 +31,7 @@
             <b-form-input
               type="text"
               size="lg"
-              v-model="livros.subtitulo"
+              v-model="livros.subtitle"
               placeholder="Informe o subTitulo"
             ></b-form-input>
           </b-form-group>
@@ -43,7 +43,7 @@
             <b-form-input
               type="text"
               size="lg"
-              v-model="livros.autor"
+              v-model="livros.author"
               placeholder="Informe o autor"
             ></b-form-input>
           </b-form-group>
@@ -53,7 +53,7 @@
             <b-form-input
               type="text"
               size="lg"
-              v-model="livros.editor"
+              v-model="livros.publisher"
               placeholder="Informe a editora"
             ></b-form-input>
           </b-form-group>
@@ -65,7 +65,7 @@
             <b-form-input
               type="text"
               size="lg"
-              v-model="livros.numpag"
+              v-model="livros.pages"
               placeholder="Informe o número de páginas"
             ></b-form-input>
           </b-form-group>
@@ -75,7 +75,7 @@
             <b-form-input
               type="text"
               size="lg"
-              v-model="livros.tema"
+              v-model="livros.genre"
               placeholder="Informe o tema"
             ></b-form-input>
           </b-form-group>
@@ -112,23 +112,23 @@
         </thead>
         <tbody>
           <tr v-for="(livros, id) in list" :key="id">
-            <td>{{ livros.titulo }}</td>
-            <td>{{ livros.subtitulo }}</td>
-            <td>{{ livros.autor }}</td>
-            <td>{{ livros.numpag }}</td>
-            <td>{{ livros.tema }}</td>
-            <td>{{ livros.editor }}</td>
+            <td>{{ livros.title }}</td>
+            <td>{{ livros.subtitle }}</td>
+            <td>{{ livros.author }}</td>
+            <td>{{ livros.pages }}</td>
+            <td>{{ livros.genre }}</td>
+            <td>{{ livros.publisher }}</td>
             <td>
               <button
                 type="button"
                 class="btn btn-warning"
-                @click="carregar(id)"
+                @click="carregar(livros.id)"
               >
                 <strong>Editar</strong>
               </button>
             </td>
             <td>
-              <button class="btn btn-danger" @click="excluir(id)">
+              <button class="btn btn-danger" @click="excluir(livros.id)">
                 Excluir
               </button>
             </td>
@@ -153,29 +153,31 @@ export default {
       id: 0,
       livros: {
         id: "",
-        titulo: "",
-        subtitulo: "",
-        autor: "",
-        editor: "",
-        numpag: "",
-        tema: "",
+        title: "",
+        subtitle: "",
+        author: "",
+        publisher: "",
+        pages: "",
+        genre: "",
+        case: "",
       },
     };
   },
   mounted() {
-    this.$http.get("livros.json").then((res) => {
+    this.$http.get("books").then((res) => {
       this.list = res.data;
-      // console.log(res.data)
+      console.log(res.data)
     });
   },
   methods: {
     limpar() {
-      this.livros.autor = "";
-      this.livros.editor = "";
+      this.livros.author = "";
+      this.livros.publisher = "";
       this.livros.id = "";
-      this.livros.numpag = "";
-      this.livros.tema = "";
-      this.livros.titulo = "";
+      this.livros.pages = "";
+      this.livros.genre = "";
+      this.livros.title = "";
+      this.livros.subtitle = "";
       this.id = null;
     },
     carregar(id) {
@@ -185,16 +187,18 @@ export default {
     cancel() {
       this.livros = [];
     },
+    show(){
+      this.$http.get("books").then((res) => {
+        this.list = res.data;
+        console.log(res.data);
+      });
+    },
     excluir(id) {
-      this.$http.delete(`/livros/${id}.json`).then(() => this.limpar());
-      // eslint-disable-next-line
-      this.$http
-        .get("livros.json")
-        .then((res) => {
-          this.list = res.data;
-          console.log(res.data);
-        })
-        .catch((err) => {
+      this.$http.delete(`/books/${id}`).then((_) =>{
+         this.limpar()
+         this.show()
+      }).catch((err) => {
+          console.log(err)
           this.limpar();
           this.mensagens.push({
             texto: "Problema para excluir!",
@@ -203,15 +207,12 @@ export default {
         });
     },
     salvar() {
-      const metodo = this.id ? "patch" : "post";
-      const finalUrl = this.id ? `/${this.id}.json` : ".json";
-      this.$http[metodo](`/livros${finalUrl}`, this.livros)
+      const metodo = this.livros.id ? "patch" : "post";
+      const finalUrl = this.livros.id ? `/${this.livros.id}` : "";
+      this.$http[metodo](`/books${finalUrl}`, this.livros)
         // eslint-disable-next-line
         .then((_) => {
-          this.$http.get("livros.json").then((res) => {
-            this.list = res.data;
-            console.log(res.data);
-          });
+          this.show()
           this.limpar();
           this.mensagens.push({
             texto: "Operação realizada com sucesso!",
@@ -221,6 +222,9 @@ export default {
     },
 
   },
+  beforeEnter: (to, from, next) => {
+
+  }
 
 };
 </script>

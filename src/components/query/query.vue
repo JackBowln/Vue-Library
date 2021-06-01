@@ -52,28 +52,28 @@ export default {
       columns: [
         {
           label: "Título",
-          field: "titulo",
+          field: "title",
         },
         {
           label: "Sub-Título",
-          field: "subtitulo",
+          field: "subtitle",
         },
         {
           label: "Autor",
-          field: "autor",
+          field: "author",
         },
         {
           label: "Editora",
-          field: "editor",
+          field: "publisher",
         },
         {
           label: "Nº páginas",
-          field: "numpag",
+          field: "pages",
           type: "number",
         },
         {
           label: "Tema",
-          field: "tema",
+          field: "genre",
         },
       ],
       search: "",
@@ -82,24 +82,24 @@ export default {
       id: 0,
       livros: {
         id: "",
-        titulo: "",
-        subtitulo: "",
-        autor: "",
-        editor: "",
-        numpag: "",
-        tema: "",
+        title: "",
+        subtitle: "",
+        author: "",
+        publisher: "",
+        pages: "",
+        genre: "",
       },
     };
   },
   mounted() {
-    this.$http.get("livros.json").then((res) => {
+    this.$http.get("books").then((res) => {
       this.list = res.data;
       // console.log(res.data)
     });
   },
   computed: {
     list() {
-      this.$http.get("livros.json").then((res) => {
+      this.$http.get("books").then((res) => {
         this.list = res.data;
         // console.log(res.data)
       });
@@ -107,9 +107,9 @@ export default {
     filteredBooks() {
       return this.list.filter(
         (livros) =>
-          livros.titulo.toLowerCase().includes(this.search.toLowerCase()) ||
-          livros.autor.toLowerCase().includes(this.search.toLowerCase())  ||
-          livros.tema.toLowerCase().includes(this.search.toLowerCase()) 
+          livros.title.toLowerCase().includes(this.search.toLowerCase()) ||
+          livros.author.toLowerCase().includes(this.search.toLowerCase())  ||
+          livros.genre.toLowerCase().includes(this.search.toLowerCase()) 
       );
     },
   },

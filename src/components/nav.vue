@@ -51,6 +51,10 @@
             <div class="button">Mobile</div>
           </router-link>
           <hr />
+          <router-link to="">
+            <div class="button">Sair</div>
+          </router-link>
+          <hr />
         </div>
       </template>
     </b-sidebar>

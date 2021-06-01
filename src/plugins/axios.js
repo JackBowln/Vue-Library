@@ -9,10 +9,8 @@ Vue.use({
     install(Vue) {
         // Vue.prototype.$http = axios
         Vue.prototype.$http = axios.create({
-            baseURL: 'https://biblioteca-39c93.firebaseio.com/',
-            headers: {
-                "Authorization": "abc123"
-            }
+            // baseURL: 'https://api.viniciusviola.com/v1/',
+            baseURL: 'http://localhost:8000/v1/'
         })
 
         Vue.prototype.$http.interceptors.request.use(config => {
